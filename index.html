@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fira+Code&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<title>Ega Maulana Hakim - QA Engineer</title>
+
+<style>
+
+:root {
+  --bg: #0a192f;
+  --bg-light: #112240;
+  --text: #ccd6f6;
+  --text-secondary: #8892b0;
+  --accent: #64ffda;
+  --gradient: linear-gradient(135deg, #6366f1, #29e6b9);
+}
+
+/* =========================
+   GLOBAL
+========================= */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body.disable-hover * {
+  pointer-events: none !important;
+}
+
+section {
+  padding: 20px 20px;
+  padding-bottom: 70px;
+  max-width: 1000px;
+  margin: auto;
+  position: relative;
+}
+
+
+
+h1 {
+  font-size: 64px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  margin: 0px;
+  color: white;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 60px;
+  position: relative;
+  display: inline-block;
+  color: var(--text);
+}
+
+h4 {
+  position: relative;
+  color: var(--text);
+}
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* garis gradient bawah */
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 3px;
+  background: var(--gradient);
+  border-radius: 10px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* =========================
+   NAVBAR / SIDEBAR
+========================= */
+.menu-toggle {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  width: 35px;
+  height: 45px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.menu-toggle span {
+  height: 3px;
+  width: 100%;
+  background: #fff;
+  border-radius: 3px;
+  transition: 0.6s;
+  background: white;
+}
+
+/* animasi jadi X */
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+  background: red;
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+  background: red;
+}
+
+/* SIDEBAR */
+#sidebar-wrapper {
+  position: fixed;
+  top: 0;
+  right: -250px; /* posisi awal disembunyiin */
+  width: 240px;
+  height: 100%;
+  border-radius: 10px;
+  background: #020c1b;
+  transition: 0.4s;
+  z-index: 999;
+  box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+}
+
+#sidebar-wrapper.active {
+  right: 0; /* keluar */
+}
+
+/* NAV ITEM */
+.sidebar-nav-item a {
+  display: block;
+  margin: 10px;
+  padding: 12px 20px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: 0.6s;
+}
+
+.sidebar-nav-item a:hover {
+  background: rgba(100,255,218,0.1);
+  color: var(--accent);
+  transform: translateX(5px);
+}
+
+/* OVERLAY */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: 998;
+}
+
+#overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+#sidebar-wrapper ul {
+  list-style: none;
+  padding: 20px ;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+/* tombol */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(100,255,218,0.1);
+  border: none;
+  color: var(--accent);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.nav:hover {
+  background: rgba(100,255,218,0.2);
+}
+
+.prev {
+  left: -10px;
+}
+
+.next {
+  right: -10px;
+}
+
+.nav {
+  transition: opacity 0.3s ease;
+}
+
+
+/* =========================
+   HERO
+========================= */
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 700px;
+  background: var(--bg);
+  background-size: cover;
+  background-position: center;
+  animation: zoomBg 20s infinite alternate;
+}
+
+.hero-content {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  animation: slideIn 2s forwards;
+}
+
+.profile-img {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+
+  border-radius: 70% 50% 40% 80% / 70% 40% 80% 50%;
+  animation: blob 8s infinite;
+
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+.profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes blob {
+  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50% { border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%; }
+  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+/*Hero content sub*/
+
+.hero-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-sub {
+  text-align: center;
+  max-width: 900px;
+  color: #94a3b8;
+  font-size: 16px;
+
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 2s ease forwards;
+  animation-delay: 1s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes zoomBg {
+  from { background-size: 100%; }
+  to { background-size: 110%; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* =========================
+   CARD & CONTENT
+========================= */
+.card {
+  
+  /*background: var(--bg-light);*/
+  
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+
+  border: 1px solid rgba(255,255,255,0.05);
+
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border: 1px solid rgba(56,189,248,0.5);
+
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.5),
+    0 0 30px rgba(56,189,248,0.3);
+}
+
+#experience-list .card {
+  position: relative;
+  padding-left: 20px;
+  z-index: 1;
+}
+
+#experience-list .card::before {
+  width: 2px;
+  background: var(--accent);
+}
+
+#experience-list .card:hover,
+.card.highlight {
+  transform: translateY(-8px) scale(1.02) !important; 
+
+  border: 1px solid rgba(56,189,248,0.5);
+
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.5),
+    0 0 30px rgba(56,189,248,0.3);
+}
+
+
+#experience-list .card * {
+  position: relative;
+  z-index: 1;
+}
+
+#projects .card {
+  cursor: pointer;
+}
+
+#projects .card:hover {
+  background: rgba(56,189,248,0.05);
+}
+
+/* =========================
+   SKILLS
+========================= */
+.skills span {
+  display: inline-block;
+  margin: 6px;
+  padding: 8px 16px;
+
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+
+  position: relative;
+  overflow: hidden;
+
+  transition: all 0.3s ease;
+}
+
+/*
+.skills span::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.3),
+    transparent
+  );
+  transition: 0.5s;
+}*/
+
+.skills span:hover::after {
+  left: 120%;
+}
+
+/* glow layer */
+.skills span::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient);
+  opacity: 0;
+  transition: 0.3s;
+  z-index: 0;
+}
+
+/* text tetap di atas */
+.skills span span,
+.skills span {
+  position: relative;
+  z-index: 1;
+}
+
+/* hover effect */
+.skills span:hover {
+  color: #fff;
+  transform: translateY(-3px) scale(1.05);
+
+  border-color: transparent;
+
+  box-shadow:
+    0 5px 15px rgba(0,0,0,0.3),
+    0 0 20px rgba(100,255,218,0.2);
+}
+
+/* aktifkan gradient saat hover */
+.skills span:hover::before {
+  opacity: 0.2;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 0.3s;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-card {
+  background: transparent;
+
+  border-radius: 16px;
+  padding: 10px;
+
+  display: flex;
+  flex-direction: row;
+
+  flex-wrap: wrap;
+  gap: 12px;
+
+  transition: 0.3s ease;
+  gap: 20px;
+
+
+  transition: 0.3s ease;
+}
+
+/*
+.contact-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.4),
+    0 0 30px rgba(100,255,218,0.08);
+}*/
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  color: var(--text);
+  text-decoration: none;
+
+  padding: 14px 18px;
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.02);
+
+  transition: 0.3s ease;
+}
+
+.contact-item i {
+  font-size: 20px;
+  color: var(--accent);
+  min-width: 24px;
+}
+
+.contact-item:hover {
+  background: rgba(100,255,218,0.08);
+  transform: translateX(5px);
+}
+
+.contact-item span {
+  color: var(--text-secondary);
+  font-size: 15px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  text-align: center;
+  padding: 20px;
+}
+
+
+
+/* =========================
+   PROJECT & SLIDER 
+========================= */
+.project-slider {
+  position: relative;
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+
+  background: rgba(2, 12, 27, 0.7);
+  backdrop-filter: blur(6px);
+
+  color: var(--accent);
+  font-size: 18px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.3s;
+  z-index: 5;
+}
+
+.nav:hover {
+  background: rgba(100,255,218,0.1);
+  border-color: var(--accent);
+}
+
+.prev {
+  left: -20px;
+}
+
+.next {
+  right: -20px;
+}
+
+.project-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px;
+  padding-top : 20px;
+  padding-bottom: 20px;
+  scroll-snap-type: x mandatory;
+}
+
+/* hide scrollbar */
+.project-track::-webkit-scrollbar {
+  display: none;
+}
+
+.project-track {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* card khusus slider */
+.project-track .card {
+  min-width: 280px;
+  max-height: 600px;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.project-card {
+  position: relative;
+  min-width: 300px;
+  aspect-ratio: 3 / 4; /* ⬅️ lebih tinggi dari sebelumnya */
+  height: 400px; /* ⬅️ dari 200 → 260 */
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  flex: 0 0 auto;
+  /*margin-left: 10px;*/
+  gap: 30px;
+}
+
+/* gambar */
+.project-card img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.5s ease;
+  filter: brightness(1);
+
+}
+
+/* overlay */
+.project-info {
+  position: absolute;
+  inset: 0;
+
+   background: linear-gradient(
+  to bottom,
+  rgba(2, 6, 23, 0.98),
+  rgba(2, 6, 23, 0.7)
+  );
+
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.6s ease;
+  
+  z-index: 2;
+}
+
+.project-info h3 {
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+}
+
+.project-info p {
+  color: #ccd6f6;
+  font-size: 14px;
+  text-align: center;
+  margin: 10px;
+}
+
+/* title awal (non-hover) */
+.project-card::after {
+  content: attr(data-title);
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+
+  
+
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+
+  /*background: rgba(2,12,27,0.6);*/
+  background: linear-gradient(
+  to top,
+  rgba(2, 12, 27, 0.7),
+  rgba(14,165,233,0.2)
+  );
+  backdrop-filter: blur(10px);
+
+  padding: 10px;
+  width: calc(100% - 30px);
+  border-radius: 6px;
+
+  opacity: 1; /* ⬅️ penting */
+  transition: 0.6s ease;
+  
+  z-index: 3;
+}
+
+/* hover effect */
+.project-card:hover img {
+  transform: scale(1.1);
+  filter: brightness(1);
+}
+
+.project-card:hover .project-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* sembunyikan title bawah saat hover */
+.project-card:hover::after {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.project-card:hover {
+  box-shadow: 0 0px 27px rgba(100,255,218,0.2);
+}
+
+
+.tech-stack {
+  margin-top: 10px;
+}
+
+.tech-stack span {
+  display: inline-block;
+  margin: 3px;
+  padding: 3px 4px;
+
+  font-size: 12px;
+  border-radius: 9px;
+
+  background: rgba(100,255,218,0.08);
+  color: var(--accent);
+
+  border: 1px solid rgba(100,255,218,0.0);
+
+  transition: 0.3s;
+}
+
+/*
+.tech-stack span:hover {
+  background: rgba(100,255,218,0.2);
+  transform: translateY(-1px);
+}*/
+
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: var(--gradient);
+  color: #ffffff;
+  text-shadow: Black;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.6s ease;
+  background-size: 150% 130%;
+}
+
+
+.btn:hover::before {
+  transform: scale(1.05);
+}
+
+/* hover effect */
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  background-position: right center;
+  transition: 0.6s ease;
+}
+
+/* saat diklik */
+.btn:active {
+  transform: translateY(0) scale(1.00);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+
+
+
+/* =========================
+   SELECTION
+========================= */
+::selection {
+  background: var(--accent);
+  color: #000;
+}
+
+/* =========================
+   CURSOR
+=========================
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1000px;
+  height: 1000px;
+
+  pointer-events: none;
+  z-index: 0;
+
+  background: radial-gradient(
+    circle,
+    rgba(100,255,218,0.15) -5%,
+    rgba(100,255,218,0.08) -2%,
+    transparent 60%
+  );
+
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease;
+} */
+
+/* =========================
+   LINK
+========================= */
+
+.links {
+  padding: 20px;
+}
+
+.links a {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+
+  color: white;
+  text-decoration: none;
+
+  position: relative;
+  transition: 0.3s;
+}
+
+/* garis bawah animasi */
+.links a::after,
+.links-resume a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0%;
+  height: 1px;
+  background: var(--accent);
+  transition: 0.3s;
+}
+
+/* hover effect */
+.links a:hover,
+.links-resume a:hover  {
+  color: var(--accent);
+}
+
+.links a:hover::after,
+.links-resume a:hover::after  {
+  width: 100%;
+}
+
+/*PANAH*/
+
+.links a .arrow,
+.links-resume a .arrow  {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.links a:hover .arrow,
+.links-resume a:hover .arrow  {
+  transform: translateX(5px);
+}
+
+/*LINK RESUME*/
+.links-resume {
+  padding: 20px;
+}
+
+.links-resume a {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 800;
+
+  color: white;
+  text-decoration: none;
+
+  position: relative;
+  transition: 0.3s;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<a class="menu-toggle" href="#">
+  <span></span>
+  <span></span>
+  <span></span>
+</a>
+
+<nav id="sidebar-wrapper">
+  <ul>
+	<li class="sidebar-nav-item">Navbar</a></li>
+    <li class="sidebar-nav-item"><a href="#home">About</a></li>
+    <li class="sidebar-nav-item"><a href="#experience">Experience</a></li>
+    <li class="sidebar-nav-item"><a href="#projects">Projects</a></li>
+    <li class="sidebar-nav-item"><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div id="overlay"></div>
+
+<!-- HERO -->
+<header class="hero" id="home"> 
+  <div class="hero-wrapper">
+
+    <!-- HERO ATAS -->
+    <div class="hero-content"> 
+      <div class="profile-img"> 
+        <img src="https://lh3.googleusercontent.com/d/1pfjtiPO8eXAnaPINbLbSOEceUeVOhA-0"> 
+      </div> 
+
+      <div> 
+        <h1>Hi, I am Ega</h1> 
+        <p class="typing"></p> 
+      </div> 
+    </div> 
+
+    <!-- HERO BAWAH (NEW) -->
+    <div class="hero-sub">
+      <p>
+        As a Software Quality Assurance Enginner, I am passionate about ensuring product quality and reliability. I do not just check if features work. 
+		I try to break them. Then I fix them so they are better. I look really closely at things. I want users to have an experience. 
+		I make sure every product works well. It must be stable and able to handle a lot of use.
+      </p>
+	  
+	  <p>
+	  I believe great products come from collaboration. Developers build products, while testers like me make them better. 
+	  We test requirements, validate functionality, and continuously improve quality.
+	  </p>
+
+      <a href="#experience" class="btn" id="exploreBtn">Explore Me More</a>
+    </div>
+
+  </div>
+</header>
+
+
+<!-- EXPERIENCE -->
+<section id="experience" class="fade-in">
+  <h2>Experience</h2>
+  <div id="experience-list"></div>
+  <div class="links-resume"> <a href="https://drive.google.com/uc?export=view&id=1xMERJf76Wmc-EiTRC28MJJj9bTbU4AlY" target="_blank" rel="noopener noreferrer">View Full Resume <span class="arrow">→</span></a> </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="fade-in">
+  <h2>Projects</h2>
+  
+  <div class="project-slider">
+
+  <button class="nav prev">&#10094;</button>
+
+   <div class="project-track" id="projectTrack">
+
+
+	<div class="project-card" data-title="QlolabyBRI">
+      <img src="https://lh3.googleusercontent.com/d/1ofSN7fuHxOFXkw4uw8xMlvuaFOkwDdyM" alt="">
+      <div class="project-info">
+        <h3>QlolabyBRI</h3>
+        <p>QLolabyBRI is an integrated corporate solution platform from Bank BRI that combines Qcash, Qlola, and Ibbiz. 
+		It is designed to help business customers (corporates, MSMEs, and retail) manage their finances in an integrated way.</p>
+		<div class="tech-stack">
+			<span>Test Case Design</span>
+			<span>Jira Bug Reporting</span>
+			<span>Database Validation</span>
+			<span>Postman</span>
+			<span>Elasticsearch</span>
+			<span>IBM iSeries</span>
+		</div>
+		<div class="links"> <a href="https://qlolabybri.com/coming-soon" target="_blank" rel="noopener noreferrer">View More <span class="arrow">→</span></a> </div>
+      </div>
+    </div>
+
+	<div class="project-card" data-title="Qcash Management System">
+      <img src="https://lh3.googleusercontent.com/d/1wlwX14T0EkH27vLfjqtqLkwcUupnnDTS" alt="">
+      <div class="project-info">
+        <h3>QCash Management System</h3>
+        <p>Qlola Cash Management is an internet-based financial management service from BRI designed specifically for non-individual customers 
+		(corporations, institutions, and organizations) to monitor cash positions and perform transactions in real time.</p>
+		<div class="tech-stack">
+			<span>Test Case Design</span>
+			<span>Jira Bug Reporting</span>
+			<span>Database Validation</span>
+			<span>Postman</span>
+			<span>IBM iSeries</span>
+		</div>
+		<div class="links"> <a href="https://bricams.bri.co.id/main-page"  target="_blank" rel="noopener noreferrer">View More <span class="arrow">→</span></a> </div>
+      </div>
+    </div>
+	
+    <div class="project-card" data-title="NDS Banking System">
+      <img src="https://lh3.googleusercontent.com/d/1o9Hpz7v4dJj9lu8-va5m189rCUy1a3Z3" alt="">
+      <div class="project-info">
+        <h3>NDS Banking System</h3>
+        <p>New Delivery System (NDS) is a web-based core operational application used by Bank BRI to handle various customer 
+		banking transactions quickly and in an integrated manner.</p>
+        <div class="tech-stack">
+			<span>Test Case Design</span>
+			<span>Jira Bug Reporting</span>
+			<span>Database Validation</span>
+			<span>Jeager UI</span>
+			<span>IBM iSeries</span>
+		</div>
+      </div>
+    </div>
+	
+	<div class="project-card" data-title="Mega Smart Mobile 'M-Smile'">
+      <img src="https://lh3.googleusercontent.com/d/1gou7Fzq3qaOAejnsV1xe4n9WRk_PNw6T" alt="">
+      <div class="project-info">
+        <h3>Mega Smart Mobile 'M-Smile'</h3>
+        <p>M-Smile is Bank Mega’s mobile banking application designed to simplify financial transactions such as opening an account online, 
+		transfers, e-wallet top-ups, payments, investments, and cardless cash withdrawals all within a single app.</p>
+		<p> </p>
+		<p> </p>
+		<div class="tech-stack">
+			<span>Test Case Design</span>
+			<span>Bug Reporting</span>
+			<span>IBM iSeries</span>
+		</div>
+      </div>
+    </div>
+	
+	<div class="project-card" data-title="Reconciliation Solutions Portal ">
+      <img src="https://lh3.googleusercontent.com/d/1xAWy-gq5o1X4SdfMqBzgkCOL6px38L2v" alt="">
+      <div class="project-info">
+        <h3>Reconciliation Solutions Portal </h3>
+        <p>Reconciliation Solutions Portal is an internal web-based operational application used by Bank Mega to match two sets of financial data 
+		between Bank Mega and its partners as an internal control to detect errors, missed transactions, or potential fraud.</p>
+		<div class="tech-stack">
+			<span>Test Case Design</span>
+			<span>Bug Reporting</span>
+			<span>Data validation</span>
+			<span>Reconciliation logic</span>
+		</div>     
+	  </div>
+    </div>
+
+  </div>
+
+  <button class="nav next">&#10095;</button>
+
+</div>
+</section>
+
+
+<!-- SKILLS -->
+<section class="fade-in">
+  <h2>Skills</h2>
+
+  <h3>Core QA</h3>
+<div class="skills">
+  <span>Manual Testing</span>
+  <span>Functional Testing</span>
+  <span>Regression Testing</span>
+  <span>Smoke Testing</span>
+  <span>User Acceptance Testing (UAT)</span>
+  <span>System Integration Testing</span>
+  <span>Test Case Design & Test Scenario Creation</span>
+</div>
+
+<h3>Technical Skills</h3>
+<div class="skills">
+  <span>Backend Transaction Validation</span>
+  <span>API Testing (RESTful Services)</span>
+  <span>Database Testing (SQL – Basic Query)</span>
+  <span>Test Automation (Basic)</span>
+</div>
+
+<h3>Tools & Technologies</h3>
+<div class="skills">
+  <span>AS400 (IBM i) – Silverlake Core Banking System</span>
+  <span>Postman</span>
+  <span>Katalon Studio</span>
+  <span>Jira</span>
+  <span>Jaeger (Distributed Tracing)</span>
+  <span>Elasticsearch (Log Analysis)</span>
+</div>
+
+<h3>Process</h3>
+<div class="skills">
+  <span>Software Development Life Cycle (SDLC)</span>
+  <span>Software Testing Life Cycle (STLC)</span>
+  <span>Agile / Scrum</span>
+  <span>User Flow Analysis</span>
+</div>
+
+<h3>Soft Skills</h3>
+<div class="skills">
+  <span>Analytical & Critical Thinking</span>
+  <span>Problem Solving</span>
+  <span>Attention to Detail</span>
+  <span>Communication & Collaboration</span>
+  <span>Ownership & Responsibility</span>
+  <span>Risk Awareness & Continuous Improvement</span>
+</div>
+
+</section>
+
+
+
+<!-- CONTACT -->
+<section id="contact" class="fade-in">
+  <h2>Contact</h2>
+
+  <div class="contact-card">
+
+    <a href="mailto:egamaulana47@gmail.com" class="contact-item">
+      <i class="fa-solid fa-envelope"></i>
+      <span>E-Mail</span>
+    </a>
+
+    <a href="https://instagram.com/egamaulanahakim" target="_blank" class="contact-item">
+      <i class="fa-brands fa-instagram"></i>
+      <span>Instagram</span>
+    </a>
+
+    <a href="https://www.linkedin.com/in/ega-maulana-hakim-46b24117b/" target="_blank" class="contact-item">
+      <i class="fa-brands fa-linkedin"></i>
+      <span>LinkedIn</span>
+    </a>
+	
+	<a href="https://github.com/egamaulanahakim" target="_blank" class="contact-item">
+      <i class="fa-brands fa-github"></i>
+      <span>GitHub</span>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Ega Maulana Hakim</p>
+</footer>
+
+<div class="cursor-glow"></div>
+
+<script>
+
+/* =========================
+   INIT APP
+========================= */
+document.addEventListener("DOMContentLoaded", () => {
+
+  initMenu();
+  initExperience();
+  initScrollAnimation();
+  initTyping();
+  initSlider();
+  updateNavButtons();
+  
+  
+});
+
+/* =========================
+   MENU
+========================= */
+function initMenu() {
+  const toggle = document.querySelector(".menu-toggle");
+  const sidebar = document.getElementById("sidebar-wrapper");
+  const overlay = document.getElementById("overlay");
+  const links = document.querySelectorAll(".sidebar-nav-item a");
+
+  // toggle menu
+  toggle.addEventListener("click", e => {
+    e.preventDefault();
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+    toggle.classList.toggle("active"); 
+  });
+
+  // klik overlay
+  overlay.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+    toggle.classList.remove("active");
+  });
+
+  // klik menu
+  links.forEach(link => {
+    link.addEventListener("click", () => {
+      sidebar.classList.remove("active");
+      overlay.classList.remove("active");
+      toggle.classList.remove("active");
+    });
+  });
+}
+
+
+/* =========================
+   HIGHLIGHT
+========================= */
+
+const exploreBtn = document.getElementById("exploreBtn");
+
+exploreBtn.addEventListener("click", () => {
+
+  // 🚫 matikan semua interaksi sementara
+  document.body.classList.add("disable-hover");
+
+  setTimeout(() => {
+    const firstCard = document.querySelector("#experience-list .card");
+
+    if (!firstCard) return;
+
+    document.querySelectorAll("#experience-list .card").forEach(card => {
+      card.classList.remove("highlight");
+    });
+
+    firstCard.classList.add("highlight");
+
+	// Dibuat jadi ke tengah
+    //firstCard.scrollIntoView({
+    //  behavior: "smooth",
+    //  block: "center"
+    //});
+
+    // ⏳ setelah beberapa detik → aktifkan lagi
+    setTimeout(() => {
+      firstCard.classList.remove("highlight");
+
+      // ✅ hidupkan hover lagi
+      document.body.classList.remove("disable-hover");
+
+    }, 3000);
+
+  }, 300);
+});
+
+
+/* =========================
+   EXPERIENCE
+========================= */
+function initExperience() {
+  const data = [
+    {
+      title: "Quality Assurance - PT Bank BRI Tbk, Jakarta",
+      year: "Mar 2022 - Present",
+      desc: "Conduct end-to-end requirement analysis, design comprehensive test scenarios, and perform manual, functional, and regression testing for banking applications (NDS, QCash, Qlola); validate complex backend transactions using AS400 (IBM i) Silverlake, analyze system behavior using Jaeger and Elasticsearch to identify root causes, perform API testing with Postman, manage defect tracking in Jira, conduct re-testing, prepare UAT documentation aligned with ISO standards, and collaborate with cross-functional teams in Agile environments to ensure high-quality releases."
+    },
+    {
+      title: "Software Tester - PT Bank Mega Tbk, Jakarta",
+      year: "Jun 2020 - Aug 2022",
+      desc: "Analyze requirements and create detailed test cases for banking systems including ATM, Mobile Banking, Internet Banking, and Virtual Account systems; execute manual and functional testing across multiple channels and transaction flows; validate backend transactions using AS400 (IBM i) Silverlake; perform defect identification, reporting, and tracking with clear documentation; conduct re-testing and regression testing to ensure system stability; and support UAT processes while preparing testing reports for stakeholders."
+    },
+    {
+      title: "IT Engineer - PT. Graha Karya Informasi, Jakarta",
+      year: "Aug 2019 - Apr 2020",
+      desc: "Responsible for diagnosing and resolving hardware, software, and end-user issues; installing, maintaining, and upgrading Windows-based systems; configuring and testing new hardware and software; assisting the network team within a TCP/IP environment; and supporting system administrators in Active Directory domain migration."
+    }
+  ];
+
+  const container = document.getElementById("experience-list");
+
+  data.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "card fade-in";
+    div.innerHTML = `
+      <h3>${item.title}</h3>
+      <h4>${item.year}</h4>
+      <p>${item.desc}</p>
+    `;
+    container.appendChild(div);
+  });
+}
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+function initScrollAnimation() {
+  const elements = document.querySelectorAll(".fade-in");
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  });
+
+  elements.forEach(el => observer.observe(el));
+}
+
+/* =========================
+   TYPING EFFECT
+========================= */
+function initTyping() {
+  const text = "Software Quality Assurance";
+  const el = document.querySelector(".typing");
+  let i = 0;
+
+  function type() {
+    if (i < text.length) {
+      el.textContent += text[i];
+      i++;
+      setTimeout(type, 30);
+    }
+  }
+
+  type();
+}
+
+const glow = document.querySelector('.cursor-glow');
+
+window.addEventListener('mousemove', (e) => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+});
+
+
+/* =========================
+   SLIDER EFFECT
+========================= */
+
+function initSlider() {
+
+  const track = document.getElementById("projectTrack");
+  const prevBtn = document.querySelector(".prev");
+  const nextBtn = document.querySelector(".next");
+
+  function getScrollAmount() {
+  const card = track.querySelector(".project-card");
+
+  const cardWidth = card.getBoundingClientRect().width;
+
+  const style = window.getComputedStyle(track);
+  const gap = parseFloat(style.gap) || 20;
+
+  return cardWidth + gap;
+}
+
+function updateNavButtons() {
+  const maxScrollLeft = track.scrollWidth - track.clientWidth;
+
+  // kalau di paling kiri
+  if (track.scrollLeft <= 5) {
+    prevBtn.style.opacity = "0";
+    prevBtn.style.pointerEvents = "none";
+  } else {
+    prevBtn.style.opacity = "1";
+    prevBtn.style.pointerEvents = "auto";
+  }
+
+  // kalau di paling kanan
+  if (track.scrollLeft >= maxScrollLeft - 5) {
+    nextBtn.style.opacity = "0";
+    nextBtn.style.pointerEvents = "none";
+  } else {
+    nextBtn.style.opacity = "1";
+    nextBtn.style.pointerEvents = "auto";
+  }
+}
+
+track.addEventListener("scroll", updateNavButtons);
+
+  nextBtn.addEventListener("click", () => {
+    stopAutoSlide();
+    track.scrollBy({
+      left: getScrollAmount(),
+      behavior: "smooth"
+    });
+      if (isVisible) startAutoSlide();
+	  setTimeout(updateNavButtons, 400); // tunggu animasi
+  });
+
+  prevBtn.addEventListener("click", () => {
+    stopAutoSlide();
+    track.scrollBy({
+      left: -getScrollAmount(),
+      behavior: "smooth"
+    });
+	   if (isVisible) startAutoSlide();
+	   setTimeout(updateNavButtons, 400);
+  });
+  
+  
+  let isVisible = false;
+
+  let autoSlide;
+	const projectSection = document.querySelector("#projects"); // id section kamu
+
+	function startAutoSlide() {
+		if (autoSlide || !isVisible) return; // biar ga double interval
+
+			autoSlide = setInterval(() => {
+			const maxScrollLeft = track.scrollWidth - track.clientWidth;
+
+		if (track.scrollLeft >= maxScrollLeft - 5) {
+			track.scrollTo({
+			left: 0,
+			behavior: "smooth"
+		});
+		} else {
+			track.scrollBy({
+			left: getScrollAmount(),
+			behavior: "smooth"
+			});
+		}
+			}, 4000);
+	}
+
+	function stopAutoSlide() {
+	clearInterval(autoSlide);
+	autoSlide = null;
+	}
+
+	// 👇 observer untuk detect section terlihat
+	const observer = new IntersectionObserver(
+    (entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+			isVisible = true;
+			startAutoSlide();
+			} else {
+			isVisible = false;
+			stopAutoSlide();
+			}
+	}	);
+	},
+	{ threshold: 0.5 }
+	
+	);
+
+	// mulai observe
+	observer.observe(projectSection);
+
+	// tetap pause saat hover
+	track.addEventListener("mouseenter", stopAutoSlide);
+
+	track.addEventListener("mouseleave", () => {
+		if (isVisible) startAutoSlide();
+	});
+  
+  
+
+}
+
+
+
+
+</script>
+
+</body>
+</html>
